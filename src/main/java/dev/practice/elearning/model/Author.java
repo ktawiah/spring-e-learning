@@ -1,5 +1,6 @@
 package dev.practice.elearning.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.practice.elearning.model.helper.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,6 +8,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,9 +32,9 @@ public class Author extends Auditable {
     @Column(updatable = false)
     private LocalDateTime dateOfBirth;
 
-//    @ManyToMany
-//    @JsonManagedReference
-//    private List<Course> courses;
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Course> courses;
 
     public int getAge() {
         return Period.between(this.dateOfBirth.toLocalDate(), LocalDate.now()).getYears();

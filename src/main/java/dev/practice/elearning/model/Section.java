@@ -15,20 +15,20 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Course extends Auditable {
+public class Section extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String title;
+    private String name;
 
-    private String description;
+    private int sectionOrder;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonManagedReference
-    private List<Author> authors;
+    private Course course;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "section", fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<Section> sections;
+    private List<Lecture> lectures;
 }

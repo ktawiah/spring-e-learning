@@ -1,12 +1,10 @@
 package dev.practice.elearning.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.practice.elearning.model.helper.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,20 +13,18 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Course extends Auditable {
+public class Lecture extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String title;
+    private String name;
 
-    private String description;
-
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Author> authors;
+    private Section section;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<Section> sections;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Resource resource;
 }
