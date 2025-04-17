@@ -1,8 +1,8 @@
 package dev.practice.elearning.controller;
 
-import dev.practice.elearning.dto.author.AuthorDto;
-import dev.practice.elearning.dto.author.AuthorResponseDto;
-import dev.practice.elearning.services.author.AuthorServiceImpl;
+import dev.practice.elearning.dto.AuthorDto;
+import dev.practice.elearning.dto.AuthorResponseDto;
+import dev.practice.elearning.services.author.AuthorService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
-    private final AuthorServiceImpl authorService;
+    private final AuthorService authorService;
 
-    public AuthorController(AuthorServiceImpl authorService) {
+    public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
     }
 

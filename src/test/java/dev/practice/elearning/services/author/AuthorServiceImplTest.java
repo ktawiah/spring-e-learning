@@ -1,9 +1,8 @@
 package dev.practice.elearning.services.author;
 
 import com.github.javafaker.Faker;
-import dev.practice.elearning.dto.author.AuthorDto;
-import dev.practice.elearning.dto.author.AuthorMapper;
-import dev.practice.elearning.dto.author.AuthorResponseDto;
+import dev.practice.elearning.dto.AuthorDto;
+import dev.practice.elearning.dto.AuthorResponseDto;
 import dev.practice.elearning.model.Author;
 import dev.practice.elearning.repository.AuthorRepository;
 import org.junit.jupiter.api.Test;
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.ZoneId;
 import java.util.UUID;
@@ -23,20 +20,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class AuthorServiceImplTest {
     @Mock
     private AuthorRepository authorRepository;
 
-    @Mock
-    private AuthorMapper authorMapper;
-
     @InjectMocks
     private AuthorServiceImpl authorService;
 
-    @Autowired
-    private Faker faker;
+    private final Faker faker = new Faker();
 
     @Test
     void addAuthor() {
@@ -51,12 +43,6 @@ class AuthorServiceImplTest {
                         .toLocalDateTime())
                 .build();
 
-        Author authorDetails = Author.builder()
-                .firstName(authorDto.getFirstName())
-                .lastName(authorDto.getLastName())
-                .email(authorDto.getEmail())
-                .dateOfBirth(authorDto.getDateOfBirth())
-                .build();
 
         Author savedAuthor = Author.builder()
                 .id(UUID.randomUUID())
@@ -66,18 +52,8 @@ class AuthorServiceImplTest {
                 .dateOfBirth(authorDto.getDateOfBirth())
                 .build();
 
-        AuthorResponseDto authorResponseDto =AuthorResponseDto.builder()
-                .id(savedAuthor.getId())
-                .firstName(savedAuthor.getFirstName())
-                .lastName(savedAuthor.getLastName())
-                .email(savedAuthor.getEmail())
-                .age(savedAuthor.getAge())
-                .build();
-
         // When
-        when(authorMapper.fromAuthorDtoToAuthor(authorDto)).thenReturn(authorDetails);
-        when(authorRepository.save(authorDetails)).thenReturn(savedAuthor);
-        when(authorMapper.fromAuthorToAutorResponseDto(savedAuthor)).thenReturn(authorResponseDto);
+        when(authorRepository.save(any(Author.class))).thenReturn(savedAuthor);
 
         // Execute
         AuthorResponseDto result = authorService.addAuthor(authorDto);

@@ -2,8 +2,8 @@ package dev.practice.elearning.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-import dev.practice.elearning.dto.author.AuthorDto;
-import dev.practice.elearning.dto.author.AuthorResponseDto;
+import dev.practice.elearning.dto.AuthorDto;
+import dev.practice.elearning.dto.AuthorResponseDto;
 import dev.practice.elearning.services.author.AuthorServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

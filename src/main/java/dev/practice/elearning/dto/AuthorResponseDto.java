@@ -1,4 +1,4 @@
-package dev.practice.elearning.dto.author;
+package dev.practice.elearning.dto;
 
 import lombok.Builder;
 import lombok.Getter;

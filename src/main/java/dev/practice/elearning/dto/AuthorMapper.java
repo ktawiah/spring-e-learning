@@ -1,11 +1,9 @@
-package dev.practice.elearning.dto.author;
+package dev.practice.elearning.dto;
 
 import dev.practice.elearning.model.Author;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AuthorMapper {
-    public AuthorResponseDto fromAuthorToAutorResponseDto(Author author) {
+    public static AuthorResponseDto fromAuthorToAutorResponseDto(Author author) {
 
         return AuthorResponseDto.builder()
                 .id(author.getId())
@@ -18,7 +16,7 @@ public class AuthorMapper {
                 .build();
     }
 
-    public Author fromAuthorDtoToAuthor(AuthorDto authorDto) {
+    public static Author fromAuthorDtoToAuthor(AuthorDto authorDto) {
         return Author.builder()
                 .firstName(authorDto.getFirstName())
                 .lastName(authorDto.getLastName())
